@@ -19,12 +19,13 @@ module.exports = function (grunt) {
 			cwd: null
 		});
 
-		var self = this;
-		var done = this.async();
 
 		if (this.filesSrc.length === 0) {
-			grunt.log('zero files selected');
+			grunt.log.writeln('zero files selected');
+			return;
 		}
+		var self = this;
+		var done = this.async();
 		var counter = 0;
 		var timer = Date.now();
 
