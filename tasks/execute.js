@@ -15,7 +15,6 @@ module.exports = function (grunt) {
 	grunt.registerMultiTask('execute', 'execute code in node', function () {
 
 		var options = this.options({
-			verbose: false,
 			stdio: 'inherit',
 			cwd: null
 		});
