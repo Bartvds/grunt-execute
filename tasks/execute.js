@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 
 
 		if (this.filesSrc.length === 0) {
-			grunt.log.writeln('zero files selected');
+			grunt.log.ok('zero files executed');
 			return;
 		}
 		var self = this;

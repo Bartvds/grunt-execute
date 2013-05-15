@@ -41,6 +41,12 @@ module.exports = function (grunt) {
 
 				},
 				src: ['test/fixtures/**/*.async.js']
+			},
+			none: {
+				options: {
+
+				},
+				src: ['test/fixtures/nonexisting.js']
 			}/*,
 			error: {
 				options: {
