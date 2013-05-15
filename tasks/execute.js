@@ -14,15 +14,19 @@ module.exports = function (grunt) {
 
 	grunt.registerMultiTask('execute', 'execute code in node', function () {
 
-		grunt.log.writeln('start'.white);
+
 		var self = this;
 		var done = this.async();
 
 		if (this.filesSrc.length === 0) {
-			grunt.log.writeln('zero files selected');
+			grunt.log('zero files selected');
 		}
+		var counter = 0;
+		var timer = Date.now();
 
 		grunt.util.async.forEachSeries(this.filesSrc, function(src, callback) {
+
+			var loop = Date.now();
 
 			src = path.resolve(src);
 			if (!src) {
@@ -30,10 +34,10 @@ module.exports = function (grunt) {
 				return false;
 			}
 			if (!grunt.file.exists(src)) {
-				grunt.fail.warn(' file does not exist ' + src);
+				grunt.fail.warn('file does not exist ' + src);
 				return false;
 			}
-			grunt.log.writeln('run ' + '--> '.white + src.cyan);
+			grunt.log.writeln ('run '.white + src.cyan);
 
 			grunt.util.spawn({
 				cmd: 'node',
@@ -44,21 +48,20 @@ module.exports = function (grunt) {
 			},
 			function (error, result, code) {
 				if (error) {
-					grunt.fail.warn('end ' + '--> '.red + src.cyan + (' '+ code).red + '\n');
+					grunt.fail.warn('error'.red + ' ' + (''+code).red);
 				} else {
-					grunt.log.writeln('end ' + '--> '.white + src.cyan + (' '+ code).green + '\n');
+					counter += 1;
+					grunt.log.writeln('ok '.white + (code !== 0 ? (''+code).cyan : '') + '(' +(Date.now() - loop)+ 'ms)');
 				}
 				callback(error);
 			});
-
-			callback(null);
 		},
 		function (err) {
 			if (err) {
-				grunt.fail.warn('error '.red + err + '\n');
+				grunt.fail.warn((' ' + err).red);
 			}
 			else {
-				grunt.log.warn('complete'.white + '\n');
+				grunt.log.ok('' + counter + ' file' + (counter > 1 ? 's' : '') + ' executed (' +(Date.now() - timer)+ 'ms)\n');
 			}
 			done();
 		}, this);
