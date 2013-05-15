@@ -14,6 +14,11 @@ module.exports = function (grunt) {
 
 	grunt.registerMultiTask('execute', 'execute code in node', function () {
 
+		var options = this.options({
+			verbose: false,
+			stdio: 'inherit',
+			cwd: null
+		});
 
 		var self = this;
 		var done = this.async();
@@ -43,10 +48,12 @@ module.exports = function (grunt) {
 				cmd: 'node',
 				args: [src],
 				opts: {
-					stdio: 'inherit'
+					cwd: (options.cwd !== null) ? options.cwd : path.dirname(src),
+					stdio: options.stdio
 				}
 			},
 			function (error, result, code) {
+				grunt.log.write(result);
 				if (error) {
 					grunt.fail.warn('error'.red + ' ' + (''+code).red);
 				} else {

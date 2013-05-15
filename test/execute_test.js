@@ -23,18 +23,34 @@ var grunt = require('grunt');
 */
 
 exports.execute = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
-  basic: function(test) {
-    test.expect(1);
+	setUp: function (done) {
+		done();
+	},
+	sync: function (test) {
+		test.expect(2);
 
-   /* var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
-*/
-	test.equal(1, 1);
-    test.done();
-  }
+		var actual, expected;
+
+		actual = grunt.file.read('test/tmp/alpha.txt');
+		expected = grunt.file.read('test/expected/alpha.txt');
+		test.equal(actual, expected, 'alpha should run and output alpha.txt.');
+
+		actual = grunt.file.read('test/tmp/bravo.txt');
+		expected = grunt.file.read('test/expected/bravo.txt');
+		test.equal(actual, expected, 'bravo should run and output bravo.txt.');
+
+		test.done();
+	},
+	async: function (test) {
+		test.expect(1);
+
+		var actual, expected;
+
+		actual = grunt.file.read('test/tmp/charlie.txt');
+		expected = grunt.file.read('test/expected/charlie.txt');
+		test.equal(actual, expected, 'charlie should run and output charlie.txt.');
+
+		test.done();
+
+	}
 };

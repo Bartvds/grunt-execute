@@ -41,13 +41,13 @@ module.exports = function (grunt) {
 
 				},
 				src: ['test/fixtures/**/*.async.js']
-			},
+			}/*,
 			error: {
 				options: {
 
 				},
 				src: ['test/fixtures/error*.js']
-			}
+			}*/
 		},
 
 		// Unit tests.
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-	grunt.registerTask('test', ['clean', 'execute:sync', 'nodeunit']);
+	grunt.registerTask('test', ['clean', 'execute', 'nodeunit']);
 
 	grunt.registerTask('default', ['jshint', 'test']);
 
