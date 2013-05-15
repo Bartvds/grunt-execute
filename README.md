@@ -25,19 +25,28 @@ In your project's Gruntfile, add a section named `execute` to the data object pa
 ```js
 grunt.initConfig({
   execute: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+    target: {
+      src: ['script.js']
+    }
+  }
 })
 ```
 
 ### Options
 
-Later
+```js
+grunt.initConfig({
+  execute: {
+    options: {
+      stdio: 'inherit', //override node spawn's stdio option
+      cwd: null //overide code cwd (default null uses scripts's own directory)
+    },
+    many_targets: {
+      src: ['apps/**/*.js', 'lib/**/index.js'] //supports globs
+    }
+  }
+})
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
