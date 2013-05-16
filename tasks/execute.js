@@ -19,7 +19,6 @@ module.exports = function (grunt) {
 			cwd: null
 		});
 
-
 		if (this.filesSrc.length === 0) {
 			grunt.log.ok('zero files executed');
 			return;
