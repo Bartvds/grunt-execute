@@ -1,7 +1,7 @@
 {
   "name": "grunt-execute",
   "description": "execute code in node",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/Bartvds/grunt-execute",
   "author": {
     "name": "Bart van der Schoor",
@@ -12,7 +12,7 @@
     "url": "grit://github.com/Bartvds/grunt-execute.git"
   },
   "keywords": [
-	"execute", "node", "code", "javascript", "spawn", "exec", "require"
+	"execute", "node", "code", "javascript", "spawn", "exec", "require", "app", "cmd"
   ],
   "bugs": {
     "url": "https://github.com/Bartvds/grunt-execute/issues"
