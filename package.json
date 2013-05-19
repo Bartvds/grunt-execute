@@ -1,7 +1,7 @@
 {
 	"name": "grunt-execute",
 	"description": "execute code in node",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"homepage": "https://github.com/Bartvds/grunt-execute",
 	"author": {
 		"name": "Bart van der Schoor",
