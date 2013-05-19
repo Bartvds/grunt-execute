@@ -19,6 +19,8 @@ grunt.loadNpmTasks('grunt-execute');
 
 ## The "execute" task
 
+The main use-case is easier testing of apps or loose bits javascript, or use code as a poor-mans grunt-task.
+
 ### Overview
 In your project's Gruntfile, add a section named `execute` to the data object passed into `grunt.initConfig()`.
 
@@ -39,7 +41,7 @@ grunt.initConfig({
   execute: {
     options: {
       stdio: 'inherit', //override node spawn's stdio option
-      cwd: null //overide code cwd (default null uses scripts's own directory)
+      cwd: '.' //overide code cwd (default null uses scripts's own directory)
     },
     many_targets: {
       src: ['apps/**/*.js', 'lib/**/index.js'] //supports globs
@@ -47,6 +49,12 @@ grunt.initConfig({
   }
 })
 ```
+
+## Todo
+
+* Add options-passing support to fake CLI/env input
+
+* Add pre/post require's
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).

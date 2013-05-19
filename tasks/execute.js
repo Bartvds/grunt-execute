@@ -16,14 +16,14 @@ module.exports = function (grunt) {
 
 		var options = this.options({
 			stdio: 'inherit',
-			cwd: null
+			cwd: '.'
 		});
 
 		if (this.filesSrc.length === 0) {
 			grunt.log.ok('zero files executed');
 			return;
 		}
-		var self = this;
+		//var self = this;
 		var done = this.async();
 		var counter = 0;
 		var timer = Date.now();
