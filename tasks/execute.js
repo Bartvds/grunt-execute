@@ -72,7 +72,7 @@ module.exports = function (grunt) {
 				grunt.fail.warn((' ' + err).red);
 			}
 			else {
-				grunt.log.ok('' + counter + ' file' + (counter > 1 ? 's' : '') + ' executed (' + (Date.now() - timer) + 'ms)\n');
+				grunt.log.ok('' + counter + ' file' + (counter === 1 ? '' : 's') + ' executed (' + (Date.now() - timer) + 'ms)\n');
 			}
 			done();
 		}, this);

@@ -40,7 +40,7 @@ grunt.initConfig({
 grunt.initConfig({
   execute: {
     options: {
-      cwd: '.' //overide code cwd (default null uses scripts's own directory)
+      cwd: '.' //overide code cwd (defaults to '.' for project main, use null for scripts's own directory)
     },
     many_targets: {
       src: ['apps/**/*.js', 'lib/**/index.js'] //supports globs
