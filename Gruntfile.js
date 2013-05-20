@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 
 		// Configuration to be run (and then tested).
 		execute: {
-			error: {src: ['test/fixtures/error*.js']},
+			//error: {src: ['test/fixtures/error*.js']},
 			sync: {src: ['test/fixtures/**/*.sync.js']},
 			async: {src: ['test/fixtures/**/*.async.js']},
 			none: {src: ['test/fixtures/nonexisting.js']}

@@ -27,7 +27,7 @@ module.exports = function (grunt) {
 		var counter = 0;
 		var timer = Date.now();
 
-		grunt.util.async.forEachSeries(this.filesSrc, function(src, callback) {
+		grunt.util.async.forEachSeries(this.filesSrc, function (src, callback) {
 
 			var loop = Date.now();
 
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 				grunt.fail.warn('file does not exist ' + src);
 				return false;
 			}
-			grunt.log.writeln ('run '.white + src.cyan);
+			grunt.log.writeln('run '.white + src.cyan);
 
 			var child = grunt.util.spawn({
 				cmd: 'node',
@@ -51,10 +51,10 @@ module.exports = function (grunt) {
 			},
 			function (error, result, code) {
 				if (error) {
-					grunt.fail.warn('error'.red + ' ' + (''+code).red);
+					grunt.fail.warn('error'.red + ' ' + ('' + code).red);
 				} else {
 					counter += 1;
-					grunt.log.writeln('ok '.white + (code !== 0 ? (''+code).cyan : '') + '(' +(Date.now() - loop)+ 'ms)');
+					grunt.log.writeln('ok '.white + (code !== 0 ? ('' + code).cyan : '') + '(' + (Date.now() - loop) + 'ms)');
 				}
 				callback(error);
 			});
@@ -62,15 +62,15 @@ module.exports = function (grunt) {
 				grunt.log.writeln(data);
 			});
 			child.stderr.on('data', function (data) {
-				grunt.log.writeln((''+data).red);
+				grunt.log.writeln(('' + data).red);
 			});
 		},
 		function (err) {
-		 if (err) {
+			if (err) {
 				grunt.fail.warn((' ' + err).red);
 			}
 			else {
-				grunt.log.ok('' + counter + ' file' + (counter > 1 ? 's' : '') + ' executed (' +(Date.now() - timer)+ 'ms)\n');
+				grunt.log.ok('' + counter + ' file' + (counter > 1 ? 's' : '') + ' executed (' + (Date.now() - timer) + 'ms)\n');
 			}
 			done();
 		}, this);
