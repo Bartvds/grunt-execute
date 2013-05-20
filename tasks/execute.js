@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 				grunt.fail.warn('file does not exist ' + src);
 				return false;
 			}
-			grunt.log.writeln('run '.white + src.cyan);
+			grunt.log.writeln('-> '.cyan + 'executing ' + src.cyan);
 
 			//use spawn so we don't have to depend on process.exit();
 			var child = grunt.util.spawn({
@@ -52,10 +52,10 @@ module.exports = function (grunt) {
 			},
 			function (error, result, code) {
 				if (error) {
-					grunt.fail.warn('error'.red + ' ' + ('' + code).red);
+					grunt.fail.warn('-> '.cyan + 'error '.red + ('' + code).red + ' ' + src.cyan + ' (' + (Date.now() - loop) + 'ms)');
 				} else {
 					counter += 1;
-					grunt.log.writeln('ok '.white + (code !== 0 ? ('' + code).cyan : '') + '(' + (Date.now() - loop) + 'ms)');
+					grunt.log.writeln('-> '.cyan + 'completed ' + src.cyan + ' (' + (Date.now() - loop) + 'ms)');
 				}
 				callback(error);
 			});
