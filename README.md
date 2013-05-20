@@ -51,8 +51,8 @@ grunt.initConfig({
 
 ## Versions
 
-0.1.4 - ditched stdio option, show errors inline (even in webstorm)
-0.1.3 - basic version, colors disabled
+* 0.1.4 - ditched stdio option, show errors inline (even in webstorm)
+* 0.1.3 - basic version, colors disabled
 
 ## Todo
 
