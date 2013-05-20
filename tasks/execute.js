@@ -42,6 +42,7 @@ module.exports = function (grunt) {
 			}
 			grunt.log.writeln('run '.white + src.cyan);
 
+			//use spawn so we don't have to depend on process.exit();
 			var child = grunt.util.spawn({
 				cmd: 'node',
 				args: [src],
@@ -59,13 +60,14 @@ module.exports = function (grunt) {
 				callback(error);
 			});
 			child.stdout.on('data', function (data) {
-				grunt.log.writeln(data);
+				grunt.log.write(data);
 			});
 			child.stderr.on('data', function (data) {
-				grunt.log.writeln(('' + data).red);
+				grunt.log.write(('' + data).red);
 			});
 		},
 		function (err) {
+			grunt.log.writeln('');
 			if (err) {
 				grunt.fail.warn((' ' + err).red);
 			}
