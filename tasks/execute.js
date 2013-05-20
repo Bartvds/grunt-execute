@@ -15,7 +15,6 @@ module.exports = function (grunt) {
 	grunt.registerMultiTask('execute', 'execute code in node', function () {
 
 		var options = this.options({
-			stdio: 'inherit',
 			cwd: '.'
 		});
 
@@ -43,16 +42,14 @@ module.exports = function (grunt) {
 			}
 			grunt.log.writeln ('run '.white + src.cyan);
 
-			grunt.util.spawn({
+			var child = grunt.util.spawn({
 				cmd: 'node',
 				args: [src],
 				opts: {
-					cwd: (options.cwd !== null) ? options.cwd : path.dirname(src),
-					stdio: options.stdio
+					cwd: (options.cwd !== null) ? options.cwd : path.dirname(src)
 				}
 			},
 			function (error, result, code) {
-				grunt.log.write(result);
 				if (error) {
 					grunt.fail.warn('error'.red + ' ' + (''+code).red);
 				} else {
@@ -61,9 +58,15 @@ module.exports = function (grunt) {
 				}
 				callback(error);
 			});
+			child.stdout.on('data', function (data) {
+				grunt.log.writeln(data);
+			});
+			child.stderr.on('data', function (data) {
+				grunt.log.writeln((''+data).red);
+			});
 		},
 		function (err) {
-			if (err) {
+		 if (err) {
 				grunt.fail.warn((' ' + err).red);
 			}
 			else {

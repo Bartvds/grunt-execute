@@ -40,7 +40,6 @@ grunt.initConfig({
 grunt.initConfig({
   execute: {
     options: {
-      stdio: 'inherit', //override node spawn's stdio option
       cwd: '.' //overide code cwd (default null uses scripts's own directory)
     },
     many_targets: {
