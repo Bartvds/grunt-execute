@@ -1,6 +1,6 @@
 # grunt-execute 
 
-[![Build Status](https://secure.travis-ci.org/Bartvds/grunt-execute .png?branch=master)](http://travis-ci.org/Bartvds/grunt-execute ) [![Dependency Status](https://gemnasium.com/Bartvds/grunt-execute.png)](https://gemnasium.com/Bartvds/grunt-execute ) [![NPM version](https://badge.fury.io/js/grunt-execute.png)](http://badge.fury.io/js/grunt-execute)
+[![Build Status](https://secure.travis-ci.org/Bartvds/grunt-execute.png?branch=master)](http://travis-ci.org/Bartvds/grunt-execute) [![Dependency Status](https://gemnasium.com/Bartvds/grunt-execute.png)](https://gemnasium.com/Bartvds/grunt-execute) [![NPM version](https://badge.fury.io/js/grunt-execute.png)](http://badge.fury.io/js/grunt-execute)
 
 > Grunt plugin to execute code in node
 
