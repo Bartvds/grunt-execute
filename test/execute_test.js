@@ -21,6 +21,16 @@ var grunt = require('grunt');
     test.doesNotThrow(block, [error], [message])
     test.ifError(value)
 */
+var path = require('path');
+var helper = require('./helper');
+
+var easyTestOutput = function (test, name) {
+	var ctx = helper.getContext(name, true);
+	var actual = grunt.file.read(ctx.dest);
+	var expected = ctx.data;
+
+	test.strictEqual(actual, expected, path.basename(name));
+};
 
 exports.execute = {
 	setUp: function (done) {
@@ -28,29 +38,41 @@ exports.execute = {
 	},
 	sync: function (test) {
 		test.expect(2);
-
-		var actual, expected;
-
-		actual = grunt.file.read('test/tmp/alpha.txt');
-		expected = grunt.file.read('test/expected/alpha.txt');
-		test.equal(actual, expected, 'alpha should run and output alpha.txt.');
-
-		actual = grunt.file.read('test/tmp/bravo.txt');
-		expected = grunt.file.read('test/expected/bravo.txt');
-		test.equal(actual, expected, 'bravo should run and output bravo.txt.');
-
+		easyTestOutput(test, 'node.sync.alpha.js');
+		easyTestOutput(test, 'node.sync.bravo.js');
 		test.done();
 	},
 	async: function (test) {
 		test.expect(1);
-
-		var actual, expected;
-
-		actual = grunt.file.read('test/tmp/charlie.txt');
-		expected = grunt.file.read('test/expected/charlie.txt');
-		test.equal(actual, expected, 'charlie should run and output charlie.txt.');
-
+		easyTestOutput(test, 'node.async.js');
 		test.done();
-
+	},
+	module_sync: function (test) {
+		test.expect(1);
+		easyTestOutput(test, 'module.sync.js');
+		test.done();
+	},
+	module_async: function (test) {
+		test.expect(1);
+		easyTestOutput(test, 'module.async.js');
+		test.done();
+	},
+	call_sync: function (test) {
+		test.expect(1);
+		easyTestOutput(test, 'call.sync.gruntfile.js');
+		test.done();
+	},
+	call_async: function (test) {
+		test.expect(1);
+		easyTestOutput(test, 'call.async.gruntfile.js');
+		test.done();
+	},
+	beforeAfter_sync: function (test) {
+		test.expect(4);
+		easyTestOutput(test, 'before.sync.gruntfile.js');
+		easyTestOutput(test, 'before.options.sync.gruntfile.js');
+		easyTestOutput(test, 'after.sync.gruntfile.js');
+		easyTestOutput(test, 'after.options.sync.gruntfile.js');
+		test.done();
 	}
 };

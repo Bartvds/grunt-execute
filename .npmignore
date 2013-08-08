@@ -1,0 +1,11 @@
+.npmignore
+.gitignore
+.gitmodules
+
+/.vagrant
+/cookbooks
+/Vagrantfile
+
+/.idea
+/node_modules
+/*.tgz
