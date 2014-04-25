@@ -1,7 +1,7 @@
 {
   "name": "grunt-execute",
   "description": "Execute code in node",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://github.com/Bartvds/grunt-execute",
   "author": {
     "name": "Bart van der Schoor",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "grit://github.com/Bartvds/grunt-execute.git"
+    "url": "git://github.com/Bartvds/grunt-execute.git"
   },
   "keywords": [
     "gruntplugin",

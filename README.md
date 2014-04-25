@@ -127,6 +127,7 @@ grunt.initConfig({
 
 ## Versions
 
+* 0.1.5 - (needs testing: bad exit code will fail grunt) 
 * 0.1.5 - Added callback module & inline function support
 * 0.1.4 - Ditched stdio option, show errors inline (even in webstorm)
 * 0.1.3 - Basic version, colors disabled

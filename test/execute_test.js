@@ -28,8 +28,8 @@ var easyTestOutput = function (test, name) {
 	var ctx = helper.getContext(name, true);
 	var actual = grunt.file.read(ctx.dest);
 	var expected = ctx.data;
-
-	test.strictEqual(actual, expected, path.basename(name));
+	var base = path.basename(name);
+	test.strictEqual(actual, expected, base);
 };
 
 exports.execute = {

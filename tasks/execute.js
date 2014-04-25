@@ -6,15 +6,13 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
 
 module.exports = function (grunt) {
+	'use strict';
 
 	var path = require('path');
 
 	function executeModuleFunction(func, context, callback) {
-
-
 		// private
 		var isFinalised = false;
 		var isAsync = false;
@@ -130,6 +128,9 @@ module.exports = function (grunt) {
 			function (error, result, code) {
 				if (error) {
 					grunt.fail.warn('-> '.cyan + 'error '.red + ('' + code).red + ' ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
+				} else if (code !== 0) {
+					grunt.fail.warn('-> '.cyan + 'exitcode '.red + ('' + code).red + ' ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
+					callback(code);
 				} else {
 					context.counter += 1;
 					grunt.log.writeln('-> '.cyan + 'completed ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
@@ -147,7 +148,6 @@ module.exports = function (grunt) {
 
 	function pluralise(count, str) {
 		return count + ' ' + str + (count === 1 ? '' : 's');
-
 	}
 
 	grunt.registerMultiTask('execute', 'execute code in node', function () {
@@ -162,6 +162,7 @@ module.exports = function (grunt) {
 			timer: Date.now(),
 			calls: 0,
 			files: 0,
+			counter: 0,
 			options: options
 		};
 
@@ -222,7 +223,7 @@ module.exports = function (grunt) {
 			function (err) {
 				grunt.log.writeln('');
 				if (err) {
-					grunt.fail.warn((' ' + err).red);
+					grunt.fail.warn(' ' + err);
 				}
 				else {
 					grunt.log.ok('' + pluralise(context.files, 'file') + ' and ' + pluralise(context.calls, 'call') + ' executed (' + (Date.now() - context.timer) + 'ms)\n');

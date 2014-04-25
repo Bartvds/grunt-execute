@@ -11,6 +11,8 @@
 /*jshint -W098 */
 module.exports = function (grunt) {
 	// Project configuration.
+	var help = require('./test/helper.js');
+
 	grunt.initConfig({
 		jshint: {
 			all: [
@@ -30,7 +32,12 @@ module.exports = function (grunt) {
 
 		// Configuration to be run (and then tested).
 		execute: {
-			//error: {src: ['test/fixtures/error*.js']},
+			error: {src: ['test/fixtures/error*.js']},
+			error_module: {
+				options: {
+					module: true
+				},
+				src: ['test/fixtures/error*.js']},
 			node_sync: {
 				src: ['test/fixtures/**/node.sync.*js']
 			},
@@ -54,7 +61,6 @@ module.exports = function (grunt) {
 			},
 			call_sync: {
 				call: function (grunt, options, async) {
-					var help = require('./test/helper.js');
 					var ctx = help.getContext('call.sync.gruntfile.js');
 
 					grunt.file.write(ctx.dest, ctx.data);
@@ -62,7 +68,6 @@ module.exports = function (grunt) {
 			},
 			call_async: {
 				call: function (grunt, options, async) {
-					var help = require('./test/helper.js');
 					var ctx = help.getContext('call.async.gruntfile.js');
 
 					// callback get, makes grunt-execute run async
@@ -81,26 +86,22 @@ module.exports = function (grunt) {
 			beforeAfter: {
 				options: {
 					before: function (grunt, options, async) {
-						var help = require('./test/helper.js');
 						var ctx = help.getContext('before.options.sync.gruntfile.js');
 
 						grunt.file.write(ctx.dest, ctx.data);
 					},
 					after: function (grunt, options, async) {
-						var help = require('./test/helper.js');
 						var ctx = help.getContext('after.options.sync.gruntfile.js');
 
 						grunt.file.write(ctx.dest, ctx.data);
 					}
 				},
 				before: function (grunt, options, async) {
-					var help = require('./test/helper.js');
 					var ctx = help.getContext('before.sync.gruntfile.js');
 
 					grunt.file.write(ctx.dest, ctx.data);
 				},
 				after: function (grunt, options, async) {
-					var help = require('./test/helper.js');
 					var ctx = help.getContext('after.sync.gruntfile.js');
 
 					grunt.file.write(ctx.dest, ctx.data);
@@ -122,9 +123,12 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-	grunt.registerTask('test', ['jshint', 'clean', 'execute', 'nodeunit']);
+	grunt.registerTask('pass', ['execute:node_sync', 'execute:zero', 'execute:module_sync',  'execute:module_async', 'execute:call_sync', 'execute:call_async', 'execute:beforeAfter']);
+	grunt.registerTask('error', ['execute:error', 'execute:error_module']);
+
+	grunt.registerTask('test', ['jshint', 'clean', 'pass', 'nodeunit']);
 
 	grunt.registerTask('default', ['test']);
-	grunt.registerTask('dev', ['jshint']);
+	grunt.registerTask('dev', ['error']);
 
 };
