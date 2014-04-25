@@ -25,10 +25,9 @@ var path = require('path');
 var helper = require('./helper');
 
 var easyTestOutput = function (test, name, append) {
-	append = typeof append !== 'undefined' ? append : '';
 	var ctx = helper.getContext(name, true);
 	var actual = grunt.file.read(ctx.dest);
-	var expected = ctx.data;
+	var expected = ctx.data + (typeof append !== 'undefined' ? append : '');
 	var base = path.basename(name);
 	test.strictEqual(actual, expected, base);
 };

@@ -63,11 +63,10 @@ module.exports = function (grunt) {
 				src: ['test/fixtures/node.async.js']
 			},
 			node_args: {
-				call: function (grunt, options, async) {
-					var ctx = help.getContext('node.args.js');
-					ctx.data.args = ['foo', 'bar'];
-					grunt.file.write(ctx.dest, ctx.data);
-				}
+				options: {
+					args: ['foo', 'bar']
+				},
+				src: ['test/fixtures/**/node.args.*js']
 			},
 			node_exit: {
 				// will crash
