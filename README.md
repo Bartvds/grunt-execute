@@ -55,6 +55,13 @@ grunt.initConfig({
 			// execute javascript files in a node child_process
 			src: ['script.js']
 		},
+		simple_target_with_args: {
+			options: {
+				// execute script with args (only working with one src)
+				args: ['arg1', 'arg2']
+			},
+			src: ['script.js']
+		},
 		cwd_target: {
 			options: {
 				// overide code cwd (defaults to '.' for project main)

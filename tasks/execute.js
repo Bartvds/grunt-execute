@@ -122,7 +122,7 @@ module.exports = function (grunt) {
 		var child = grunt.util.spawn(
 			{
 				cmd: 'node',
-				args: [src],
+				args: context.options.args ? [src].concat(context.options.args) : [src],
 				opts: {
 					cwd: (context.options.cwd !== null) ? context.options.cwd : path.dirname(src)
 				}
