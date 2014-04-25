@@ -5,7 +5,10 @@
 /.vagrant
 /cookbooks
 /Vagrantfile
+/test
 
+/.travis.yml
+/.jshintrc
 /.idea
 /node_modules
 /*.tgz
