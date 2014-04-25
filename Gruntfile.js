@@ -12,6 +12,24 @@
 module.exports = function (grunt) {
 	// Project configuration.
 	var help = require('./test/helper.js');
+	var assert = require('assert');
+
+	function getShellFail(name) {
+		return {
+			options: {
+				callback: function (err, stdout, stderr, cb) {
+					if (!err) {
+						console.log('\nExpected error for test execute: '.red + 'execute:' + name + '\n');
+						cb(new Error('expected task to fail'));
+						return;
+					}
+					assert(/^Command failed: /.test(err.message), 'invalid error message: ' + err.message);
+					cb();
+				}
+			},
+			command: 'grunt execute:' + name
+		};
+	}
 
 	grunt.initConfig({
 		jshint: {
@@ -32,17 +50,28 @@ module.exports = function (grunt) {
 
 		// Configuration to be run (and then tested).
 		execute: {
-			error: {src: ['test/fixtures/error*.js']},
+			error: {src: ['test/fixtures/error.js']},
 			error_module: {
 				options: {
 					module: true
 				},
-				src: ['test/fixtures/error*.js']},
+				src: ['test/fixtures/error.js']},
 			node_sync: {
 				src: ['test/fixtures/**/node.sync.*js']
 			},
 			node_async: {
 				src: ['test/fixtures/node.async.js']
+			},
+			node_args: {
+				call: function (grunt, options, async) {
+					var ctx = help.getContext('node.args.js');
+					ctx.data.args = ['foo', 'bar'];
+					grunt.file.write(ctx.dest, ctx.data);
+				}
+			},
+			node_exit: {
+				// will crash
+				src: ['test/fixtures/node.exit.one.js']
 			},
 			zero: {
 				src: ['test/fixtures/nonexisting.js']
@@ -109,7 +138,18 @@ module.exports = function (grunt) {
 				src: ['test/fixtures/node.async.js']
 			}
 		},
-
+		shell: {
+			options: {
+				stdout: false,
+				stderr: false,
+				execOptions: {
+					cwd: '.'
+				}
+			},
+			node_exit: getShellFail('node_exit:'),
+			error: getShellFail('error'),
+			error_module: getShellFail('error_module')
+		},
 		// Unit tests.
 		nodeunit: {
 			tests: ['test/*_test.js']
@@ -122,11 +162,26 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	grunt.loadNpmTasks('grunt-shell');
 
-	grunt.registerTask('pass', ['execute:node_sync', 'execute:zero', 'execute:module_sync',  'execute:module_async', 'execute:call_sync', 'execute:call_async', 'execute:beforeAfter']);
-	grunt.registerTask('error', ['execute:error', 'execute:error_module']);
+	grunt.registerTask('pass', [
+		'execute:node_args',
+		'execute:node_async',
+		'execute:node_sync',
+		'execute:zero',
+		'execute:module_sync',
+		'execute:module_async',
+		'execute:call_sync',
+		'execute:call_async',
+		'execute:beforeAfter'
+	]);
+	grunt.registerTask('fail', [
+		'shell:node_exit',
+		'shell:error',
+		'shell:error_module'
+	]);
 
-	grunt.registerTask('test', ['jshint', 'clean', 'pass', 'nodeunit']);
+	grunt.registerTask('test', ['jshint', 'clean', 'pass', 'fail', 'nodeunit']);
 
 	grunt.registerTask('default', ['test']);
 	grunt.registerTask('dev', ['error']);

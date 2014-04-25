@@ -57,7 +57,7 @@ grunt.initConfig({
 		},
 		simple_target_with_args: {
 			options: {
-				// execute script with args (only working with one src)
+				// execute node with additional arguments
 				args: ['arg1', 'arg2']
 			},
 			src: ['script.js']
@@ -127,7 +127,7 @@ grunt.initConfig({
 
 ## Versions
 
-* 0.1.5 - (needs testing: bad exit code will fail grunt) 
+* 0.2.0 - Non-zero exit code will fail grunt, add support for commandline arguments  
 * 0.1.5 - Added callback module & inline function support
 * 0.1.4 - Ditched stdio option, show errors inline (even in webstorm)
 * 0.1.3 - Basic version, colors disabled

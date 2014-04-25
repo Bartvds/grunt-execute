@@ -1,3 +1,3 @@
 
 
-throw('your hands up in air!');
+throw(new Error('your hands up in air!'));

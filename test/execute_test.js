@@ -24,7 +24,8 @@ var grunt = require('grunt');
 var path = require('path');
 var helper = require('./helper');
 
-var easyTestOutput = function (test, name) {
+var easyTestOutput = function (test, name, append) {
+	append = typeof append !== 'undefined' ? append : '';
 	var ctx = helper.getContext(name, true);
 	var actual = grunt.file.read(ctx.dest);
 	var expected = ctx.data;
@@ -45,6 +46,11 @@ exports.execute = {
 	async: function (test) {
 		test.expect(1);
 		easyTestOutput(test, 'node.async.js');
+		test.done();
+	},
+	args: function (test) {
+		test.expect(1);
+		easyTestOutput(test, 'node.args.js', ' foo bar');
 		test.done();
 	},
 	module_sync: function (test) {

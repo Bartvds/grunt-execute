@@ -91,11 +91,18 @@ module.exports = function (grunt) {
 
 		grunt.log.writeln('-> '.cyan + 'executing module ' + src.cyan);
 
-		var mod = require(src);
+		var mod;
+		try {
+			mod = require(src);
+		}
+		catch (err) {
+			callback(new Error('not a function'));
+			return;
+		}
 
 		if (!grunt.util._.isFunction(mod)) {
 			grunt.fail.warn('-> '.cyan + 'error '.red + src.cyan + ' should export a Function');
-			callback('not a function');
+			callback(new Error('not a function'));
 			return;
 		}
 		var start = Date.now();
@@ -128,14 +135,15 @@ module.exports = function (grunt) {
 			function (error, result, code) {
 				if (error) {
 					grunt.fail.warn('-> '.cyan + 'error '.red + ('' + code).red + ' ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
+					callback(error);
 				} else if (code !== 0) {
 					grunt.fail.warn('-> '.cyan + 'exitcode '.red + ('' + code).red + ' ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
-					callback(code);
+					callback(new Error('bad exit code ' + code), code);
 				} else {
 					context.counter += 1;
 					grunt.log.writeln('-> '.cyan + 'completed ' + src.cyan + ' (' + (Date.now() - start) + 'ms)');
+					callback();
 				}
-				callback(error);
 			}
 		);
 		child.stdout.on('data', function (data) {
@@ -223,12 +231,13 @@ module.exports = function (grunt) {
 			function (err) {
 				grunt.log.writeln('');
 				if (err) {
-					grunt.fail.warn(' ' + err);
+					grunt.log.writeln(err);
+					done(false);
 				}
 				else {
 					grunt.log.ok('' + pluralise(context.files, 'file') + ' and ' + pluralise(context.calls, 'call') + ' executed (' + (Date.now() - context.timer) + 'ms)\n');
+					done();
 				}
-				done();
 			}
 		);
 	});
