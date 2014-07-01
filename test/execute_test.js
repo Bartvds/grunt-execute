@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var semver = require('semver');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -48,10 +49,16 @@ exports.execute = {
 		test.done();
 	},
 	args: function (test) {
-		test.expect(2);
-		easyTestOutput(test, 'node.args.js', ' foo bar');
-        easyTestOutput(test, 'node.harmony.js', ' true');
-		test.done();
+        if (semver.satisfies(semver.clean(process.version), '>=0.11')) {
+            test.expect(2);
+            easyTestOutput(test, 'node.args.js', ' foo bar');
+            easyTestOutput(test, 'node.harmony.js', ' true');
+            test.done();
+        } else {
+            test.expect(1);
+            easyTestOutput(test, 'node.args.js', ' foo bar');
+            test.done();
+        }
 	},
 	module_sync: function (test) {
 		test.expect(1);
