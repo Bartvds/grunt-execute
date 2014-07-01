@@ -48,8 +48,14 @@ exports.execute = {
 		test.done();
 	},
 	args: function (test) {
-		test.expect(1);
-		easyTestOutput(test, 'node.args.js', ' foo bar');
+		if (process.version.match(/^v\d+\.(\d+)\.\d+$/)[1] >= 11) {
+			test.expect(2);
+			easyTestOutput(test, 'node.args.js', ' foo bar');
+			easyTestOutput(test, 'node.harmony.js', ' true');
+		} else {
+			test.expect(1);
+			easyTestOutput(test, 'node.args.js', ' foo bar');
+		}
 		test.done();
 	},
 	module_sync: function (test) {

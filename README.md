@@ -62,6 +62,13 @@ grunt.initConfig({
 			},
 			src: ['script.js']
 		},
+		simple_target_with_harmony: {
+			options: {
+				// pass arguments to node itself (eg: before script parameter)
+				nodeargs: ['--harmony']
+			},
+			src: ['script.js']
+		},
 		cwd_target: {
 			options: {
 				// overide code cwd (defaults to '.' for project main)
@@ -127,7 +134,8 @@ grunt.initConfig({
 
 ## Versions
 
-* 0.2.1 - Non-zero exit code will fail grunt, add support for commandline arguments  
+* 0.2.2 - Add support for node arguments, via `nodeargs` (like `--harmony`)
+* 0.2.1 - Non-zero exit code will fail grunt, add support for commandline arguments
 * 0.1.5 - Added callback module & inline function support
 * 0.1.4 - Ditched stdio option, show errors inline (even in webstorm)
 * 0.1.3 - Basic version, colors disabled

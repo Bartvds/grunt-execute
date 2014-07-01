@@ -87,6 +87,12 @@ module.exports = function (grunt) {
 				},
 				src: ['test/fixtures/module.async.js']
 			},
+			harmony_on: {
+				options: {
+					nodeargs: ['--harmony']
+				},
+				src: ['test/fixtures/node.harmony.js']
+			},
 			call_sync: {
 				call: function (grunt, options, async) {
 					var ctx = help.getContext('call.sync.gruntfile.js');
@@ -167,6 +173,7 @@ module.exports = function (grunt) {
 		'execute:node_args',
 		'execute:node_async',
 		'execute:node_sync',
+		'execute:harmony_on',
 		'execute:zero',
 		'execute:module_sync',
 		'execute:module_async',
