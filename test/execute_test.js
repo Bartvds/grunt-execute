@@ -48,8 +48,9 @@ exports.execute = {
 		test.done();
 	},
 	args: function (test) {
-		test.expect(1);
+		test.expect(2);
 		easyTestOutput(test, 'node.args.js', ' foo bar');
+        easyTestOutput(test, 'node.harmony.js', ' true');
 		test.done();
 	},
 	module_sync: function (test) {
