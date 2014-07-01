@@ -62,6 +62,13 @@ grunt.initConfig({
 			},
 			src: ['script.js']
 		},
+        simple_target_with_harmony_on: {
+            options: {
+                // execute node with --harmony
+                harmony: true
+            },
+            src: ['script.js']
+        },
 		cwd_target: {
 			options: {
 				// overide code cwd (defaults to '.' for project main)
