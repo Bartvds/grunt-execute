@@ -134,6 +134,7 @@ module.exports = function (grunt) {
 				cmd: 'node',
 				args: args,
 				opts: {
+					stdio: 'inherit',
 					cwd: (context.options.cwd !== null) ? context.options.cwd : path.dirname(src)
 				}
 			},
@@ -151,12 +152,6 @@ module.exports = function (grunt) {
 				}
 			}
 		);
-		child.stdout.on('data', function (data) {
-			grunt.log.write(data);
-		});
-		child.stderr.on('data', function (data) {
-			grunt.log.write(('' + data).red);
-		});
 	}
 
 	function pluralise(count, str) {
