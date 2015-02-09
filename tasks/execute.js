@@ -128,13 +128,16 @@ module.exports = function (grunt) {
 			args = context.options.nodeargs.concat(args);
 		}
 
+		var envs = context.options.env ? context.options.env : {};
+
 		//use spawn so we don't have to depend on process.exit();
 		var child = grunt.util.spawn(
 			{
 				cmd: 'node',
 				args: args,
 				opts: {
-					cwd: (context.options.cwd !== null) ? context.options.cwd : path.dirname(src)
+					cwd: (context.options.cwd !== null) ? context.options.cwd : path.dirname(src),
+					env: envs
 				}
 			},
 			function (error, result, code) {

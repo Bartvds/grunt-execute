@@ -1,4 +1,4 @@
-# grunt-execute 
+# grunt-execute
 
 [![Build Status](https://secure.travis-ci.org/Bartvds/grunt-execute.png?branch=master)](http://travis-ci.org/Bartvds/grunt-execute) [![Dependency Status](https://gemnasium.com/Bartvds/grunt-execute.png)](https://gemnasium.com/Bartvds/grunt-execute) [![NPM version](https://badge.fury.io/js/grunt-execute.png)](http://badge.fury.io/js/grunt-execute)
 
@@ -62,6 +62,15 @@ grunt.initConfig({
 			},
 			src: ['script.js']
 		},
+		simple_target_with_envs: {
+			options: {
+				// execute node with additional ENV variables
+				env: {
+					ARG: 'arg1'
+				}
+			},
+			src: ['script.js']
+		},
 		simple_target_with_harmony: {
 			options: {
 				// pass arguments to node itself (eg: before script parameter)
@@ -101,7 +110,7 @@ grunt.initConfig({
 			call: function(grunt, options, async){
 				// get the callback
 				var done = async();
-				
+
 				setTimeout(function(){
 					grunt.log.writeln('Done!')
 					done(err);
@@ -134,6 +143,7 @@ grunt.initConfig({
 
 ## Versions
 
+* 0.2.3 - Add support for node ENV variables via env options object
 * 0.2.2 - Add support for node arguments, via `nodeargs` (like `--harmony`)
 * 0.2.1 - Non-zero exit code will fail grunt, add support for commandline arguments
 * 0.1.5 - Added callback module & inline function support

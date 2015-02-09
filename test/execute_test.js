@@ -24,10 +24,12 @@ var grunt = require('grunt');
 var path = require('path');
 var helper = require('./helper');
 
-var easyTestOutput = function (test, name, append) {
+var easyTestOutput = function (test, name, append, prepend) {
 	var ctx = helper.getContext(name, true);
 	var actual = grunt.file.read(ctx.dest);
-	var expected = ctx.data + (typeof append !== 'undefined' ? append : '');
+  var before = (typeof prepend !== 'undefined' ? (prepend + ' ') : '');
+  var after = (typeof append !== 'undefined' ? append : '');
+	var expected = before + ctx.data + after;
 	var base = path.basename(name);
 	test.strictEqual(actual, expected, base);
 };
@@ -58,6 +60,11 @@ exports.execute = {
 		}
 		test.done();
 	},
+  envs: function (test) {
+    test.expect(1);
+    easyTestOutput(test, 'node.envs.js', '', 'FOO=bar');
+    test.done();
+  },
 	module_sync: function (test) {
 		test.expect(1);
 		easyTestOutput(test, 'module.sync.js');

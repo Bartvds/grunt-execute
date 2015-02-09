@@ -68,6 +68,14 @@ module.exports = function (grunt) {
 				},
 				src: ['test/fixtures/**/node.args.*js']
 			},
+			node_envs: {
+				options: {
+					env: {
+						FOO: 'bar'
+					}
+				},
+				src: ['test/fixtures/**/node.envs.*js']
+			},
 			node_exit: {
 				// will crash
 				src: ['test/fixtures/node.exit.one.js']
@@ -171,6 +179,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('pass', [
 		'execute:node_args',
+		'execute:node_envs',
 		'execute:node_async',
 		'execute:node_sync',
 		'execute:harmony_on',
